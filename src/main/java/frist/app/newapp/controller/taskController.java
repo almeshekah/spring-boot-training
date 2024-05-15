@@ -2,31 +2,37 @@ package frist.app.newapp.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import frist.app.newapp.repositories.taskRepository;
-import frist.app.newapp.entities.task.taskEntity;
+import frist.app.newapp.entities.task.dto.TaskEntityDto;
+import frist.app.newapp.entities.task.dto.TaskEntityPostUpdateDto;
+import frist.app.newapp.services.TaskService;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
 @RestController
-@RequestMapping("/tasks")
-public class taskController {
-    private final taskRepository repository;
+@RequestMapping("/task")
+public class TaskController {
+
+    @Autowired
+    private TaskService service;
 
     @PostMapping
-    public taskEntity addTask(@RequestBody taskEntity task) {
-        return repository.save(task);
+    public TaskEntityDto addTask(@RequestBody TaskEntityPostUpdateDto taskDto) {
+        return service.createTask(taskDto);
     }
 
     @GetMapping
-    public List<taskEntity> getAllTasks() {
-        return repository.findAll();
+    public List<TaskEntityDto> getAllTasks() {
+        return service.retrieveAllTasks();
     }
 
     @GetMapping("/{id}")
-    public taskEntity getTaskById(@PathVariable Long id) {
-        return repository.findById(id).orElse(null);
+    public TaskEntityDto getTaskById(@PathVariable Long id) {
+        return service.retrieveOneTask(id);
     }
 }

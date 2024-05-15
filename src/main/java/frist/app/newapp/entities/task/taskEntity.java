@@ -1,5 +1,7 @@
 package frist.app.newapp.entities.task;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +19,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Table(name = "task")
-public class taskEntity {
+public class TaskEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,4 +30,9 @@ public class taskEntity {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "start_date")
+    private LocalDate startDate;
+
+    @Column(name = "end_date")
+    private LocalDate endDate;
 }

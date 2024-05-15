@@ -4,13 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import frist.app.newapp.entities.task.taskEntity;
+import org.springframework.stereotype.Repository;
 
-public interface taskRepository extends JpaRepository<taskEntity, Long> {
+import frist.app.newapp.entities.task.TaskEntity;
 
-    taskEntity save(taskEntity task);
+@Repository
+public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
 
-    List<taskEntity> findAll();
+    TaskEntity save(TaskEntity task);
 
-    Optional<taskEntity> findById(Long id);
+    List<TaskEntity> findAll();
+
+    Optional<TaskEntity> findById(Long id);
 }
